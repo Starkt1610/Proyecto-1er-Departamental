@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Tarjeta de presentación</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/tarjeta.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Tarjeta de presentacion</h1>
+
+    <div class="card">
+    <img src="foto-uni.jpg" alt="Foto de Ian" class="foto">
+    <p><strong>Ian Emilio Jiménez Meza</strong></p>
+    <p>Grupo: 15601</p>
+    <p>Soy estudiante del TESE, estudio ingenieria informatica, estoy en el grupo 15601</p>
+    <p>me gusta la tecnologia, sabere como funciona y que componentes tiene</p>
+    <p>me gusta trabajar en equipo y conocer nuevas formas de programar como HTML5</p>
+    <button id="btn-contacto">Mostrar contacto</button>
+    <p id="contacto" style="display: none;">
+        📧 Correo: 202310321@tese.edu.mx <br>
+        📱 Teléfono: 55-5507-0305
+    </p>
+    </div>
+    <script>
+        // JS para mostrar/ocultar el contacto
+        const boton = document.getElementById("btn-contacto");
+        const contacto = document.getElementById("contacto");
+
+        boton.addEventListener("click", () => {
+            if (contacto.style.display === "none") {
+                contacto.style.display = "block";
+                boton.textContent = "Ocultar contacto";
+            } else {
+                contacto.style.display = "none";
+                boton.textContent = "Mostrar contacto";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

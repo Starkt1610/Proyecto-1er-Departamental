@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunnerJS</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+
+<body>
+    <h1>Proyecto 1er Departamental</h1>
+    <h2>Leaderboard</h2>
+    <ul id="leaderboard"></ul>
+    <button id="resetLeaderboardBtn">Resetear Puntajes</button>
+
+
+    <div id="hud">
+        <span id="score">Score: 0</span>
+        <span id="level">Nivel: 1</span>
+        <span id="highscore">Máx: 0</span>
+    </div>
+
+    <canvas id="gameCanvas" width="800" height="200"></canvas>
+
+    <button id="startBtn">Iniciar</button>
+
+    <!-- Overlay oculto -->
+    <div id="overlay" class="hidden">
+        <h2 id="overlayTitle">Game Over</h2>
+        <p>Puntaje: <span id="finalScore">0</span></p>
+        <p>Nivel alcanzado: <span id="finalLevel">1</span></p>
+        <input type="text" id="playerName" placeholder="Tu nombre">
+        <button id="saveScoreBtn">Guardar puntuación</button>
+        <p id="saveMsg"></p>
+        <button id="restartBtn">Reiniciar</button>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>

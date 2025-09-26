@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Juego de Memoria</title>
+  <link rel="stylesheet" href="css/memory.css"/>
+</head>
+<body>
+<header class="container">
+  <h1>Juego de Memoria</h1>
+  <div class="stats">
+    <span>Intentos: <span id="moves">0</span></span>
+    <span>Tiempo: <span id="time">0</span> s</span>
+    <button id="restartBtn">Reiniciar</button>
+  </div>
+</header>
+
+<main class="container">
+  <div class="memory-grid" id="memoryGrid">
+    <!-- Las cartas se generan dinámicamente con JS -->
+  </div>
+</main>
+
+<div id="winMessage" class="win-message">
+  <div class="win-content">
+    <h2>¡Ganaste! 🎉</h2>
+    <p>Intentos: <span id="finalMoves"></span> | Tiempo: <span id="finalTime"></span> s</p>
+    <button id="playAgain">Jugar de nuevo</button>
+  </div>
+</div>
+
+<script src="memory.js"></script>
+</body>
+</html>
