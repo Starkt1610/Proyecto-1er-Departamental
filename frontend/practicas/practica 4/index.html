@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Piedra, Papel o Tijeras</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/qcveachulo.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Piedra, Papel o Tijeras</h1>
+    <div class="botones">
+        <div class="opcion">
+            <img src="Piedra.jpg" alt="Piedra" class="foto">
+            <button id="piedra">Piedra</button>
+        </div>
+        <div class="opcion">
+            <img src="Paper.png" alt="Papel" class="foto">
+            <button id="papel">Papel</button>
+        </div>
+        <div class="opcion">
+            <img src="Tijeras.png" alt="Tijeras" class="foto">
+            <button id="tijeras">Tijeras</button>
+        </div>
+    </div>
+
+
+    <div id="resultado">
+        <p>elige una opción</p>
+    </div>
+
+    <div id="marcador">
+        <p>Victorias: <span id="victorias">0</span></p>
+        <p>Derrotas: <span id="derrotas">0</span></p>
+        <p>Empates: <span id="empates">0</span></p>
+    </div>
+
+
+    <script>
+
+        let victorias = 0;
+        let derrotas = 0;
+        let empates = 0;
+
+        const resultado = document.getElementById("resultado");
+        const victoriasSpan = document.getElementById("victorias");
+        const derrotasSpan = document.getElementById("derrotas");
+        const empatesSpan = document.getElementById("empates");
+
+
+        function eleccionComputadora() {
+            const opciones = ["piedra", "papel", "tijeras"];
+            const indice = Math.floor(Math.random() * 3);
+            return opciones[indice];
+        }
+
+        function jugar(eleccionJugador) {
+            const eleccionPC = eleccionComputadora();
+            let mensaje = `Tú elegiste: ${eleccionJugador.toUpperCase()} <br> 
+                           La computadora eligió: ${eleccionPC.toUpperCase()} <br>`;
+
+            if (eleccionJugador === eleccionPC) {
+                mensaje += "<strong>¡Empate!</strong>";
+                empates++;
+            } else if (
+                (eleccionJugador === "piedra" && eleccionPC === "tijeras") ||
+                (eleccionJugador === "papel" && eleccionPC === "piedra") ||
+                (eleccionJugador === "tijeras" && eleccionPC === "papel")
+            ) {
+                mensaje += "<strong>¡Ganaste!</strong>";
+                victorias++;
+            } else {
+                mensaje += "<strong>¡Perdiste!</strong>";
+                derrotas++;
+            }
+
+            resultado.innerHTML = `<p>${mensaje}</p>`;
+
+            victoriasSpan.textContent = victorias;
+            derrotasSpan.textContent = derrotas;
+            empatesSpan.textContent = empates;
+        }
+
+        document.getElementById("piedra").addEventListener("click", () => jugar("piedra"));
+        document.getElementById("papel").addEventListener("click", () => jugar("papel"));
+        document.getElementById("tijeras").addEventListener("click", () => jugar("tijeras"));
+    </script>
+
+</body>
+
+</html>

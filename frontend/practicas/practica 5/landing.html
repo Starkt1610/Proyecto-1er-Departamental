@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CalmaApp — Meditación</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header con navegación principal -->
+  <header>
+    <div class="container header-inner">
+      <h1 class="logo">CalmaApp</h1>
+      <nav aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a href="#features">Características</a></li>
+          <li><a href="#about">Sobre</a></li>
+          <li><a href="#contact">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero principal -->
+  <section id="hero" class="hero">
+    <div class="container hero-grid">
+      <article class="hero-text">
+        <h2>Encuentra tu calma en 10 minutos al día</h2>
+        <p>Sesiones guiadas, recordatorios y estadísticas sencillas para empezar una rutina de meditación.</p>
+        <button id="subscribeBtn" class="cta">Suscríbete</button>
+      </article>
+      <figure class="hero-figure" aria-hidden="true">
+        <div class="phone-mockup">💙</div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Sección de características -->
+  <section id="features" class="features container">
+    <h3>Características</h3>
+    <div class="cards">
+      <article class="card">
+        <h4>Guías diarias</h4>
+        <p>Sesiones cortas para reducir estrés y mejorar sueño.</p>
+      </article>
+      <article class="card">
+        <h4>Recordatorios</h4>
+        <p>Alertas suaves para mantener tu hábito.</p>
+      </article>
+      <article class="card">
+        <h4>Estadísticas</h4>
+        <p>Resumen semanal de tu progreso.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Sección about -->
+  <section id="about" class="about container">
+    <h3>Sobre CalmaApp</h3>
+    <p>Creada por expertos en bienestar, nuestra app prioriza la simplicidad y accesibilidad.</p>
+  </section>
+
+  <!-- Formulario de contacto -->
+  <section id="contact" class="contact container">
+    <h3>Contacto</h3>
+    <form id="contactForm" novalidate>
+      <label for="name">Nombre</label>
+      <input id="name" name="name" type="text" placeholder="Tu nombre" required />
+      <span class="error" id="nameError"></span>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="ejemplo@correo.com" required />
+      <span class="error" id="emailError"></span>
+
+      <label for="message">Mensaje</label>
+      <textarea id="message" name="message" rows="4" placeholder="Tu mensaje..." required></textarea>
+      <span class="error" id="messageError"></span>
+
+      <div class="form-actions">
+        <button type="submit" class="btn">Enviar</button>
+        <button type="button" id="subscribeInline" class="btn secondary">Suscríbete</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer container">
+    <p>&copy; <span id="year"></span> CalmaApp — Hecho por Ian</p>
+  </footer>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeModal" class="close">&times;</button>
+      <h4>¡Gracias por suscribirte!</h4>
+      <p>Te hemos enviado un correo de confirmación — Bienvenido a CalmaApp.</p>
+    </div>
+    <div id="confetti-container" class="confetti-container"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

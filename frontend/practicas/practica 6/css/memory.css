@@ -1,0 +1,149 @@
+/* Estilo base */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+
+  /* Color de respaldo */
+  background-color: #66ae82;
+
+  /* Imagen de fondo */
+  background-image: url('Fondo.jpg'); /* tu ruta */
+
+  /* Ajustes para que se vea bien */
+  background-size: cover;          /* la imagen cubre todo */
+  background-repeat: no-repeat;    /* no repetir */
+  background-attachment: fixed;    /* efecto tipo "parallax" (opcional) */
+  background-position: center;     /* centrada */
+
+  color: #ffd16e;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #c19554;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  background: #e6b368;
+}
+
+/* Grid de cartas */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  justify-items: center;
+  margin-top: 1rem;
+}
+
+/* Carta y efecto flip */
+.memory-card {
+  width: 100px;
+  height: 120px;
+  position: relative;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.memory-card.flip .card-inner {
+  transform: rotateY(180deg);
+}
+.card-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.card-front {
+  background-image: url('Yu-gi-oh.jpg');
+  background-size: contain;       /* que se ajuste a todo el div */
+  background-position: center;  /* centrada */
+  border-radius: 4px;
+  height: 100px;
+  width: 70px;
+  /* opcional: quitar color sólido */
+  /* background: none; */
+}
+
+.card-back {
+  background-image: url('Trampa.jpg');
+  background-size: contain;       /* que se ajuste a todo el div */
+  background-position: center;  /* centrada */
+  transform: rotateY(180deg);
+  height: 100px;
+  width: 70px;
+}
+
+/* Mensaje de victoria */
+.win-message {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+.win-message .win-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+}
+.win-message.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .memory-card {
+    width: 70px;
+    height: 90px;
+  }
+  .card-front,
+  .card-back {
+    font-size: 1.5rem;
+  }
+}

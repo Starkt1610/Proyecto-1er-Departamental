@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url("fondo minecraft.jpg") no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #e28f00fd;
+    margin-bottom: 20px;
+}
+
+/* Contenedor principal */
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Cada opción (foto + botón en un recuadro) */
+.opcion {
+    background: rgba(47, 1, 69, 0.85); /* semitransparente para ver el fondo */
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    transition: transform 0.2s ease;
+}
+
+.opcion:hover {
+    transform: scale(1.05);
+}
+
+/* Imagen */
+.foto {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Botones */
+.opcion button {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #42025e;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.opcion button:hover {
+    background: #9202b6;
+}
+
+/* Resultado */
+#resultado {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ffc800fd;
+}
+
+/* Marcador */
+#marcador {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #ffc800fd;
+}

@@ -1,0 +1,56 @@
+:root{
+  --bg:#944c6a;
+  --accent:#fe9035;
+  --dark:#fffabf;
+  --card:#5a3c49;
+}
+
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial, sans-serif;background:var(--bg);color:var(--dark)}
+
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+
+/* Header */
+header{background:#6e5560;position:sticky;top:0}
+.header-inner{display:flex;justify-content:space-between;align-items:center}
+.nav-list{display:flex;gap:1rem;list-style:none}
+.nav-list a{text-decoration:none;color:var(--dark)}
+
+/* Hero */
+.hero{padding:3rem 0;background:linear-gradient(180deg, rgba(90,160,255,0.06), transparent)}
+.hero-grid{display:grid;grid-template-columns:1fr 320px;gap:2rem;align-items:center}
+.cta{background:var(--accent);color:white;border:none;padding:0.8rem 1.2rem;border-radius:14px;cursor:pointer}
+
+/* Cards */
+.features .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.card{background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 6px 20px rgba(237, 246, 139, 0.329)}
+
+/* Contact form */
+.contact label{display:block;margin-top:0.75rem}
+.contact input,.contact textarea{background:#ff98c1;width:100%;padding:0.75rem;border-radius:8px;border:1px solid #ffdc82;margin-top:0.25rem}
+.form-actions{display:flex;gap:0.5rem;margin-top:1rem}
+.btn{padding:0.6rem 1rem;border-radius:8px;border:none;cursor:pointer;background:var(--accent);color:#fff}
+.btn.secondary{background:transparent;color:var(--accent);border:2px solid rgb(250, 155, 96)}
+
+.error{color:#ddf061;font-size:0.9rem;min-height:1.2em;display:block;margin-top:0.25rem}
+
+/* Modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:1rem;visibility:hidden;opacity:0;transition:opacity 260ms}
+.modal[aria-hidden="false"]{visibility:visible;opacity:1;background:#944c6a}
+.modal-content{background:var(--card);padding:1.25rem;border-radius:14px;max-width:420px;position:relative}
+.close{position:absolute;top:8px;right:8px;border:none;background:transparent;font-size:1.25rem;cursor:pointer}
+
+.confetti-container{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:14px}
+@keyframes fall{
+  0%{transform:translateY(-10vh) rotate(0deg);opacity:1}
+  100%{transform:translateY(120vh) rotate(540deg);opacity:0.9}
+}
+.confetti{
+  position:absolute;width:10px;height:16px;border-radius:2px;opacity:0;transform-origin:center;animation-name:fall;animation-timing-function:linear;
+}
+
+/* Responsive */
+@media (max-width:880px){
+  .hero-grid{grid-template-columns:1fr}
+  .features .cards{grid-template-columns:1fr}
+}

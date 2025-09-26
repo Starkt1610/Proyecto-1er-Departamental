@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>App de Clima Local</title>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ---------------------------------
+           ESTILOS GENERALES
+        --------------------------------- */
+        :root {
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --glass: rgba(255, 255, 255, 0.12);
+            --accent: #1565c0;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #a0d8ff, #ffffff);
+            transition: background 0.6s ease;
+            overflow: hidden;
+        }
+
+        body.clear { background: linear-gradient(180deg, #87CEFA 0%, #E6F7FF 100%); }
+        body.clouds { background: linear-gradient(180deg, #cfd8dc 0%, #eceff1 100%); }
+        body.rain { background: linear-gradient(180deg, #78909c 0%, #90a4ae 100%); }
+        body.snow { background: linear-gradient(180deg, #f2f7fb 0%, #ffffff 100%); }
+        body.default { background: linear-gradient(180deg, #e0eaf6 0%, #ffffff 100%); }
+
+        /* tarjeta principal */
+        .card {
+            width: 320px;
+            max-width: calc(100% - 32px);
+            background: var(--card-bg);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(10, 20, 40, 0.15);
+            padding: 20px;
+            backdrop-filter: blur(6px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .location { font-weight: 700; font-size: 1.1rem; }
+        .time { font-size: 0.85rem; color: #3338; }
+
+        .main { display: flex; align-items: center; gap: 12px; }
+        .icon { font-size: 48px; width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: var(--glass); }
+        .temp { font-size: 40px; font-weight: 800; line-height: 1; }
+        .desc { text-transform: capitalize; color: #2228; }
+
+        .details { display: flex; justify-content: space-between; margin-top: 14px; font-size: 0.9rem; }
+        .detail { display: flex; flex-direction: column; align-items: center; }
+        .detail small { color: #3338; }
+
+        /* Buscador */
+        .search { margin-top: 14px; display: flex; gap: 8px; }
+        .search input { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid #0000; outline: none; }
+        .search button { padding: 8px 12px; border-radius: 8px; border: 0; background: var(--accent); color: white; cursor: pointer; }
+
+        /* spinner overlay */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.12);
+            z-index: 50;
+            backdrop-filter: blur(2px);
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity .2s, visibility .2s;
+        }
+
+        .overlay.show { visibility: visible; opacity: 1; }
+
+        .spinner {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 6px solid rgba(255, 255, 255, 0.6);
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* mensajes de error */
+        .msg {
+            margin-top: 12px;
+            color: #7f1d1d;
+            background: #fff0f0;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ffdcdc;
+        }
+
+        /* Animaciones lluvia / nieve */
+        .rain, .snow { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+        .raindrop { position: absolute; bottom: 110%; width: 2px; height: 60px; opacity: 0.6; animation: drop linear infinite; background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0)); }
+        @keyframes drop { to { transform: translateY(140vh); opacity: 0.9; } }
+        .snowflake { position: absolute; top: -10%; width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.9); opacity: 0.95; animation: snow linear infinite; filter: blur(.2px); }
+        @keyframes snow { to { transform: translateY(120vh) rotate(200deg); opacity: 0.95; } }
+
+        /* responsive */
+        @media(min-width:720px) { .card { width: 420px; } }
+    </style>
+</head>
+
+<body class="default">
+
+    <div class="card" role="region" aria-label="Panel de clima">
+        <div class="header">
+            <div>
+                <div class="location" id="location">Cargando ubicación...</div>
+                <div class="time" id="time">—</div>
+            </div>
+            <div id="refreshBtn" title="Actualizar" style="cursor:pointer"><i class="fas fa-sync"></i></div>
+        </div>
+
+        <div class="main">
+            <div class="icon" id="weatherIcon">☀️</div>
+            <div>
+                <div class="temp" id="temp">--°C</div>
+                <div class="desc" id="desc">—</div>
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="detail">
+                <div id="feels">--°C</div>
+                <small>Sensación</small>
+            </div>
+            <div class="detail">
+                <div id="humidity">--%</div>
+                <small>Humedad</small>
+            </div>
+            <div class="detail">
+                <div id="wind">-- m/s</div>
+                <small>Viento</small>
+            </div>
+        </div>
+
+        <form id="searchForm" class="search" role="search" style="display:none">
+            <input id="cityInput" placeholder="Buscar ciudad (ej: Mexico)" aria-label="Buscar ciudad" />
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div id="message" class="msg" style="display:none"></div>
+
+        <p style="font-size:0.8rem;margin-top:10px;color:#3338">
+            Puedes denegar la geolocalización y buscar por ciudad usando el buscador.
+        </p>
+    </div>
+
+    <!-- Contenedores para lluvia / nieve -->
+    <div class="rain" id="rain"></div>
+    <div class="snow" id="snow"></div>
+
+    <!-- Spinner overlay -->
+    <div class="overlay" id="overlay">
+        <div>
+            <div class="spinner"></div>
+            <div style="text-align:center;margin-top:8px;color:white">Cargando clima…</div>
+        </div>
+    </div>
+
+    <!-- Enlazamos JS externo -->
+    <script src="app.js"></script>
+</body>
+</html>
